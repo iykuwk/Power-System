@@ -1,23 +1,34 @@
 clc;
 clear;
 
-Vr = 400e3;
-Pr = 400e6;
+P = 400*10^6/3;
+Vr = 400*10^3/sqrt(3);
 pf = 0.9;
+Ir = P/(pf*Vr)*exp(-acos(pf)*1i);
+
 R = 0.01*20;
-X = 0.1*20;
+X = 0.1*20i;
 
-Ir = Pr/(sqrt(3)*Vr*pf);
-ph1 = acos(pf);
-Ir_complex = Ir*(cos(-ph1) + 1i*sin(-ph1));
+Z = R + X;
 
-Vs = Vr + (R + 1i*X)*Ir_complex;
+A = 1;
+B = Z;
+C = 0;
+D = 1;
 
-Is = Ir_complex;
-Ps = real(sqrt(3)*Vs*conj(Is));
+T = [A B; C D];
+Y = [Vr; Ir];
 
-efficiency = Pr/Ps * 100;
+S = T*Y;
 
-fprintf('Short Line(20 km):\n');
-fprintf('Vs = %.2f kV\n', abs(Vs)/1e3);
-fprintf('Efficiency = %.2f %%\n', efficiency);
+Vs = S(1);
+Is = S(2);
+
+% Voltage Regulation
+VR = (abs(abs(Vs) - abs(Vr))/abs(Vs))*100;
+
+% Efficiency
+n = P/(real(Vs*conj(Is)))*100;
+
+
+

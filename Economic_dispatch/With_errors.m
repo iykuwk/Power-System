@@ -13,7 +13,7 @@ Pd = 975; % Total demand
 lambda = 6.0; % Initial guess
 tol = 0.0001;
 dP = 1;
-
+    
 while abs(dP) > tol
 % Calculate unconstrained power for each generator
 P1 = (lambda - b(1)) / (2 * c(1));
@@ -26,7 +26,7 @@ P3 = min(max(P3, Pmin(3)), Pmax(3));
 % Calculate total generation and mismatch
 Pg = P1 + P2 + P3;
 dP = Pd - Pg;
-% Update lambda
+% Update lambda by gradient method
 dLam = dP / (1/(2*c(1)) + 1/(2*c(2)) + 1/(2*c(3)));
 lambda = lambda + dLam;
 end

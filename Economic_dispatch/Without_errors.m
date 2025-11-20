@@ -5,8 +5,8 @@ a = [500 400 200];
 b = [5.3 5.5 5.8];
 c = [0.004 0.006 0.009];
 
-Pd = 800; % Total demand in MW
-lambda = 6.0; % Initial guess for lambda
+Pd = 800; % Total demand 
+lambda = 6.0; % Initial guess
 tol = 0.0001; % Convergence tolerance
 dP = 1; % Initialize power mismatch
 
@@ -19,13 +19,13 @@ P3 = (lambda - b(3)) / (2 * c(3));
 Pg = P1 + P2 + P3;
 % Power mismatch
 dP = Pd - Pg;
-% Update lambda using gradient method
+% Update lambda
 dLam = dP / (1/(2*c(1)) + 1/(2*c(2)) + 1/(2*c(3)));
 lambda = lambda + dLam;
 end
 
 % Display results
-fprintf('\nEconomic Dispatch Results with No Limits \n');
+fprintf('\n--- Economic Dispatch Results (No Limits) ---\n');
 fprintf('P1 = %.3f MW\n', P1);
 fprintf('P2 = %.3f MW\n', P2);
 fprintf('P3 = %.3f MW\n', P3);

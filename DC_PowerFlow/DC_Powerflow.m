@@ -29,14 +29,14 @@ clc; clear;
     B_reduced = B(non_slack, non_slack);
     P_known = P_inj(non_slack);
     
-    % Solve: P = B * delta  -->  delta = B \ P
+    % Solve: P = B * delta, delta = B \ P
     delta_calc = B_reduced \ P_known;
     
     % Reconstruct full delta vector
     delta = zeros(n, 1);
     delta(non_slack) = delta_calc;
    
-    % Calculate complex voltage V = |V| /_ delta
+    % Calculate complex voltage V = |V| delta
     V_comp = V .* exp(1j * delta);
     
     % Calculate S = V * conj(I) = V * conj(Y * V)
